@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>College Club and Event Management System</title>
+</head>
+
+<body>
+
+    <h1>College Club and Event Management System</h1>
+    <p>Welcome to the College Club Registration Portal</p>
+
+    <hr>
+
+    <!-- STUDENT SECTION -->
+    <h2>Student Management</h2>
+
+    <h3>Register Student</h3>
+
+    <form action="/students/add" method="post">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+        <br><br>
+
+        <label>Student Name:</label>
+        <input type="text" name="name" maxlength="100" required>
+        <br><br>
+
+        <label>Department:</label>
+        <input type="text" name="department" maxlength="50" required>
+        <br><br>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <h3>View Students</h3>
+    <a href="/students">View All Students</a>
+
+    <hr>
+
+    <!-- CLUB SECTION -->
+    <h2>Club Management</h2>
+
+    <h3>Available Clubs</h3>
+    <a href="/clubs">View All Clubs</a>
+
+    <h3>Join a Club</h3>
+
+    <form action="/clubs/join" method="post">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+        <br><br>
+
+        <label>Club ID:</label>
+        <input type="number" name="clubId" min="1" required>
+        <br><br>
+
+        <button type="submit">Join Club</button>
+
+    </form>
+
+    <h3>Leave a Club</h3>
+
+    <form action="/clubs/leave" method="post">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+        <br><br>
+
+        <label>Club ID:</label>
+        <input type="number" name="clubId" min="1" required>
+        <br><br>
+
+        <button type="submit">Leave Club</button>
+
+    </form>
+
+    <h3>My Clubs</h3>
+
+    <form action="/clubs/my-clubs" method="get">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+
+        <button type="submit">View My Clubs</button>
+
+    </form>
+
+    <hr>
+
+    <!-- EVENTS SECTION -->
+    <h2>Event Management</h2>
+
+    <h3>View All Events</h3>
+    <a href="/events">View Events, Dates and Venues</a>
+
+    <h3>Register for an Event</h3>
+
+    <form action="/events/register" method="post">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+        <br><br>
+
+        <label>Event ID:</label>
+        <input type="number" name="eventId" min="1" required>
+        <br><br>
+
+        <button type="submit">Register for Event</button>
+
+    </form>
+
+    <h3>My Event Registrations</h3>
+
+    <form action="/events/my-events" method="get">
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+
+        <button type="submit">View My Events</button>
+
+    </form>
+
+    <hr>
+
+    <!-- CLUB HEAD SECTION -->
+    <h2>Club Head Section</h2>
+
+    <h3>Add New Event</h3>
+
+    <form action="/events/add" method="post">
+
+        <label>Club Head Student ID:</label>
+        <input type="number" name="headStudentId" min="1" required>
+        <br><br>
+
+        <label>Club ID:</label>
+        <input type="number" name="clubId" min="1" required>
+        <br><br>
+
+        <label>Event Name:</label>
+        <input type="text" name="eventName" maxlength="100" required>
+        <br><br>
+
+        <label>Description:</label>
+        <textarea name="description" maxlength="255"></textarea>
+        <br><br>
+
+        <label>Event Date:</label>
+        <input type="date" name="eventDate" required>
+        <br><br>
+
+        <label>Event Time:</label>
+        <input type="time" name="eventTime" required>
+        <br><br>
+
+        <label>Venue:</label>
+        <input type="text" name="venue" maxlength="100" required>
+        <br><br>
+
+        <button type="submit">Add Event</button>
+
+    </form>
+
+    <h3>View Event Participants</h3>
+
+    <form action="/events/participants" method="get">
+
+        <label>Event ID:</label>
+        <input type="number" name="eventId" min="1" required>
+
+        <button type="submit">View Participants</button>
+
+    </form>
+
+    <hr>
+
+    <!-- ADMIN SECTION -->
+    <h2>Admin Section</h2>
+
+    <h3>Add New Club</h3>
+
+    <form action="/clubs/add" method="post">
+
+        <label>Club Name:</label>
+        <input type="text" name="clubName" maxlength="100" required>
+        <br><br>
+
+        <label>Description:</label>
+        <textarea name="description" maxlength="255"></textarea>
+        <br><br>
+
+        <button type="submit">Add Club</button>
+
+    </form>
+
+    <h3>Assign Club Head</h3>
+
+    <form action="/clubs/assign-head" method="post">
+
+        <label>Club ID:</label>
+        <input type="number" name="clubId" min="1" required>
+        <br><br>
+
+        <label>Student ID:</label>
+        <input type="number" name="studentId" min="1" required>
+        <br><br>
+
+        <button type="submit">Assign Club Head</button>
+
+    </form>
+
+    <h3>View Club Members</h3>
+
+    <form action="/clubs/members" method="get">
+
+        <label>Club ID:</label>
+        <input type="number" name="clubId" min="1" required>
+
+        <button type="submit">View Members</button>
+
+    </form>
+
+    <hr>
+
+    <p>College Club and Event Management System</p>
+
+</body>
+</html>

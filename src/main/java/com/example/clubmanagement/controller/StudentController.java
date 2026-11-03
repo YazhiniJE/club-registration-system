@@ -64,6 +64,18 @@ public class StudentController {
                     .body("Please fill in all student details!");
         }
 
+        
+        String dept = department.trim().toUpperCase();
+
+        if (!dept.equals("IOT") &&
+            !dept.equals("CS") &&
+            !dept.equals("AI")) {
+
+            return ResponseEntity.badRequest()
+                .body("Invalid department! Please check that the department belongs to IOT, AI, or CS.");
+        }
+
+
         int id;
 
         // Check whether student ID is a valid number
@@ -83,13 +95,28 @@ public class StudentController {
                 "(student_id, name, department) VALUES (?, ?, ?)";
 
         try {
-            jdbc.update(sql, id, name.trim(), department.trim());
+            jdbc.update(sql, id, name.trim(), dept);
 
             return ResponseEntity.ok("Student added successfully!");
 
-        } catch (DataIntegrityViolationException e) {
+        } 
+        catch (DataIntegrityViolationException e) {
+
+        // Check whether the student ID already exists
+        Integer count = jdbc.queryForObject(
+        "SELECT COUNT(*) FROM students WHERE student_id = ?",
+        Integer.class,
+        id
+        );
+
+        if (count != null && count > 0) {
             return ResponseEntity.badRequest()
-                    .body("Student ID already exists or details are invalid!");
+                    .body("Student ID already exists!");
         }
+
+        return ResponseEntity.badRequest()
+                .body("Invalid student details! Please check that the department belongs to IOT, AI, or CS.");
+        }
+
     }
 }

@@ -7,7 +7,9 @@ USE club_management;
 CREATE TABLE IF NOT EXISTS students (
     student_id INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    department VARCHAR(50) NOT NULL
+    department VARCHAR(50) NOT NULL,
+    CONSTRAINT chk_department
+        CHECK (department IN ('IOT', 'CS', 'AI'))
 );
 
 -- Table 2: Clubs

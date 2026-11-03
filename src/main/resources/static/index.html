@@ -498,9 +498,17 @@
             label.textContent = humanize(key) + ": ";
 
             const text = document.createElement("span");
-            text.textContent = raw === null || raw === undefined || raw === ""
-                ? "Not assigned"
-                : String(raw);
+
+            if (raw === null || raw === undefined || raw === "") {
+            text.textContent = "Not assigned";
+            }
+            else if (key === "event_date" || key === "eventDate") {
+            text.textContent = String(raw).split("T")[0];
+            }   
+            else {
+            text.textContent = String(raw);
+            }
+
 
             line.append(label, text);
             card.appendChild(line);

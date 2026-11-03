@@ -346,9 +346,7 @@
     <div class="feature-row">
         <div class="feature-input">
             <h3>Update or Delete Event</h3>
-
-            <p>For updating, fill in the new event details in the
-            Add Event form above.</p>
+            <p>Enter the Event ID and Club Head Student ID. Fill in only the details you want to change.</p>
 
             <form id="editEventForm">
                 <label>Event ID:</label>
@@ -359,13 +357,20 @@
                 <input type="number" id="editHeadId" min="1" required>
                 <br><br>
 
-                <button type="button" onclick="updateEvent()">
-                    Update Event
-                </button>
+                <label>New Date:</label>
+                <input type="date" id="editEventDate">
+                <br><br>
 
-                <button type="button" onclick="deleteEvent()">
-                    Delete Event
-                </button>
+                <label>New Time:</label>
+                <input type="time" id="editEventTime">
+                <br><br>
+
+                <label>New Venue:</label>
+                <input type="text" id="editEventVenue" placeholder="Enter new venue">
+                <br><br>
+
+                <button type="button" onclick="updateEvent()">Update Event</button>
+                <button type="button" onclick="deleteEvent()">Delete Event</button>
             </form>
         </div>
 
@@ -778,26 +783,32 @@
 
     });
 
-    // Update event
+    // Update only the event details that were entered
     function updateEvent() {
-
-        if (!document.getElementById("editEventForm")
-                .reportValidity()) {
+        if (!document.getElementById("editEventForm").reportValidity()) {
             return;
         }
 
-        if (!document.getElementById("addEventForm")
-                .reportValidity()) {
+        const data = {};
+        const newDate = value("editEventDate");
+        const newTime = value("editEventTime");
+        const newVenue = value("editEventVenue");
+
+        if (newDate) data.eventDate = newDate;
+        if (newTime) data.eventTime = newTime;
+        if (newVenue) data.venue = newVenue;
+
+        if (Object.keys(data).length === 0) {
+            show("edit-event-result", "Enter a new date, time or venue to update.", false, 400);
             return;
         }
 
         request(
             "/events/" + value("editEventId") +
-            "?headStudentId=" +
-                encodeURIComponent(value("editHeadId")),
+            "?headStudentId=" + encodeURIComponent(value("editHeadId")),
             "edit-event-result",
             "PUT",
-            eventDetails()
+            data
         );
     }
 

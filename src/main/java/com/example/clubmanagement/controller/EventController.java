@@ -3,16 +3,11 @@ package com.example.clubmanagement.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +17,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.clubmanagement.model.EventRegistration;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping("/events")
@@ -87,19 +78,12 @@ public class EventController {
         return count != null && count > 0;
     }
 
-<<<<<<< HEAD
-    // 4. Create an event
-=======
-    // 4. Create an event (club head only)
-    
     // 4. Create an event (Club Head only)
->>>>>>> 7e5e422 (Fixed the date issue)
     @PostMapping
     public ResponseEntity<String> addEvent(
             @RequestBody Map<String, Object> data,
             @RequestParam int headStudentId) {
 
-<<<<<<< HEAD
         String clubIdText = String.valueOf(
             data.getOrDefault("clubId", "")
         );
@@ -124,6 +108,7 @@ public class EventController {
             data.getOrDefault("venue", "")
         ).trim();
 
+        // Check required fields
         if (clubIdText.isBlank() ||
             eventName.isBlank() ||
             dateText.isBlank() ||
@@ -138,6 +123,7 @@ public class EventController {
         LocalDate eventDate;
         LocalTime eventTime;
 
+        // Convert date and time
         try {
             clubId = Integer.parseInt(clubIdText);
             eventDate = LocalDate.parse(dateText);
@@ -155,6 +141,7 @@ public class EventController {
                     .body("Club ID must be positive!");
         }
 
+        // Check whether club exists
         Integer count = jdbc.queryForObject(
             "SELECT COUNT(*) FROM clubs WHERE club_id = ?",
             Integer.class,
@@ -166,6 +153,7 @@ public class EventController {
                     .body("Club does not exist!");
         }
 
+        // Only club head can create an event
         if (!isClubHead(clubId, headStudentId)) {
             return ResponseEntity.status(403)
                     .body("Only the club head can create events!");
@@ -176,6 +164,7 @@ public class EventController {
             "event_date, event_time, venue) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
+        // Get automatically generated Event ID
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbc.update(connection -> {
@@ -203,129 +192,14 @@ public class EventController {
                     .body("Event saved, but Event ID could not be retrieved.");
         }
 
-        return ResponseEntity.ok(
-            "Event created successfully! Event ID: " +
-            generatedId.intValue()
-        );
-    }
-
-    // 5. Update event date, time or venue
-=======
-        // Read values from JSON
-        String clubIdText = String.valueOf(
-                data.getOrDefault("clubId", ""));
-
-        String eventName = String.valueOf(
-                data.getOrDefault("eventName", "")).trim();
-
-        String description = String.valueOf(
-                data.getOrDefault("description", "")).trim();
-
-        String dateText = String.valueOf(
-                data.getOrDefault("eventDate", ""));
-
-        String timeText = String.valueOf(
-                data.getOrDefault("eventTime", ""));
-
-        String venue = String.valueOf(
-                data.getOrDefault("venue", "")).trim();
-
-        // Check missing details
-        if (clubIdText.isBlank()
-                || eventName.isBlank()
-                || dateText.isBlank()
-                || timeText.isBlank()
-                || venue.isBlank()) {
-
-            return ResponseEntity.badRequest()
-                    .body("Please fill in all event details!");
-        }
-
-        int clubId;
-        LocalDate eventDate;
-        LocalTime eventTime;
-
-        // Convert input into proper Java types
-        try {
-            clubId = Integer.parseInt(clubIdText);
-            eventDate = LocalDate.parse(dateText);
-            eventTime = LocalTime.parse(timeText);
-
-        } catch (NumberFormatException |
-                 DateTimeParseException e) {
-
-            return ResponseEntity.badRequest()
-                    .body("Invalid Club ID, date or time!");
-        }
-
-        if (clubId <= 0) {
-            return ResponseEntity.badRequest()
-                    .body("Club ID must be positive!");
-        }
-
-        // Check whether club exists
-        Integer count = jdbc.queryForObject(
-                "SELECT COUNT(*) FROM clubs WHERE club_id = ?",
-                Integer.class,
-                clubId
-        );
-
-        if (count == null || count == 0) {
-            return ResponseEntity.badRequest()
-                    .body("Club does not exist!");
-        }
-
-        // Check club head
-        if (!isClubHead(clubId, headStudentId)) {
-            return ResponseEntity.status(403)
-                    .body("Only the assigned club head can add events!");
-        }
-
-        // Insert event into database
-        String sql = "INSERT INTO events " +
-                "(club_id, event_name, description, " +
-                "event_date, event_time, venue) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-
-        // Stores the Event ID automatically generated by MySQL
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbc.update(connection -> {
-
-            PreparedStatement ps = connection.prepareStatement(
-                    sql,
-                    Statement.RETURN_GENERATED_KEYS
-            );
-
-            ps.setInt(1, clubId);
-            ps.setString(2, eventName);
-            ps.setString(3, description);
-            ps.setDate(4, java.sql.Date.valueOf(eventDate));
-            ps.setTime(5, java.sql.Time.valueOf(eventTime));
-            ps.setString(6, venue);
-
-            return ps;
-
-        }, keyHolder);
-
-        // Get the newly generated Event ID
-        Number generatedId = keyHolder.getKey();
-
-        if (generatedId == null) {
-            return ResponseEntity.internalServerError()
-                    .body("Event saved, but the Event ID could not be retrieved.");
-        }
-
         int eventId = generatedId.intValue();
 
         return ResponseEntity.ok(
-                "Event created successfully! Event ID: " + eventId
+            "Event created successfully! Event ID: " + eventId
         );
     }
 
-
-    // 5. Update an event (club head only)
->>>>>>> 7e5e422 (Fixed the date issue)
+    // 5. Update an event (Club Head only)
     @PutMapping("/{id}")
     public ResponseEntity<String> updateEvent(
             @PathVariable int id,
@@ -373,7 +247,7 @@ public class EventController {
                 time = LocalTime.parse(newTime);
             }
 
-            // All validation is done before updating
+            // Update event date
             if (date != null) {
                 jdbc.update(
                     "UPDATE events SET event_date = ? WHERE event_id = ?",
@@ -382,6 +256,7 @@ public class EventController {
                 );
             }
 
+            // Update event time
             if (time != null) {
                 jdbc.update(
                     "UPDATE events SET event_time = ? WHERE event_id = ?",
@@ -390,6 +265,7 @@ public class EventController {
                 );
             }
 
+            // Update event venue
             if (newVenue != null && !newVenue.isBlank()) {
                 jdbc.update(
                     "UPDATE events SET venue = ? WHERE event_id = ?",
@@ -408,7 +284,7 @@ public class EventController {
         }
     }
 
-    // 6. Delete event
+    // 6. Delete an event (Club Head only)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEvent(
             @PathVariable int id,
@@ -431,12 +307,16 @@ public class EventController {
                     .body("Only the club head can delete events!");
         }
 
+        // Delete registrations first
         jdbc.update(
-            "DELETE FROM event_registrations WHERE event_id = ?", id
+            "DELETE FROM event_registrations WHERE event_id = ?",
+            id
         );
 
+        // Delete event
         jdbc.update(
-            "DELETE FROM events WHERE event_id = ?", id
+            "DELETE FROM events WHERE event_id = ?",
+            id
         );
 
         return ResponseEntity.ok(
@@ -455,6 +335,7 @@ public class EventController {
                     .body("Invalid student ID!");
         }
 
+        // Check event exists
         Integer eventCount = jdbc.queryForObject(
             "SELECT COUNT(*) FROM events WHERE event_id = ?",
             Integer.class,
@@ -466,6 +347,7 @@ public class EventController {
                     .body("Event not found!");
         }
 
+        // Check student exists
         Integer studentCount = jdbc.queryForObject(
             "SELECT COUNT(*) FROM students WHERE student_id = ?",
             Integer.class,
@@ -495,7 +377,7 @@ public class EventController {
         }
     }
 
-    // 8. View participants
+    // 8. View participants of an event
     @GetMapping("/{id}/registrations")
     public List<Map<String, Object>> getEventRegistrations(
             @PathVariable int id) {

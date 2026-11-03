@@ -4,231 +4,825 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>College Club and Event Management System</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
+<header class="page-header">
     <h1>College Club and Event Management System</h1>
-    <p>Welcome to the College Club Registration Portal</p>
+    <p>Register students, join clubs and participate in college events.</p>
+</header>
 
-    <hr>
+<!-- STUDENT MANAGEMENT -->
 
-    <!-- STUDENT SECTION -->
+<section class="main-section">
     <h2>Student Management</h2>
 
-    <h3>Register Student</h3>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Add Student</h3>
 
-    <form action="/students/add" method="post">
+            <form id="addStudentForm">
+                <label>Student ID:</label>
+                <input type="number" id="studentId" min="1" required>
+                <br><br>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
-        <br><br>
+                <label>Name:</label>
+                <input type="text" id="studentName" required>
+                <br><br>
 
-        <label>Student Name:</label>
-        <input type="text" name="name" maxlength="100" required>
-        <br><br>
+                <label>Department:</label>
+                <input type="text" id="department" required>
+                <br><br>
 
-        <label>Department:</label>
-        <input type="text" name="department" maxlength="50" required>
-        <br><br>
+                <button type="submit">Add Student</button>
+            </form>
+        </div>
 
-        <button type="submit">Add Student</button>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="add-student-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    </form>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>View All Students</h3>
+            <button type="button" onclick="getAllStudents()">
+                View All Students
+            </button>
+        </div>
 
-    <h3>View Students</h3>
-    <a href="/students">View All Students</a>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="view-students-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    <hr>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Find Student</h3>
 
-    <!-- CLUB SECTION -->
+            <form id="findStudentForm">
+                <label>Student ID:</label>
+                <input type="number" id="findStudentId" min="1" required>
+                <br><br>
+
+                <button type="submit">Find Student</button>
+            </form>
+        </div>
+
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="find-student-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<!-- CLUB MANAGEMENT -->
+
+<section class="main-section">
     <h2>Club Management</h2>
 
-    <h3>Available Clubs</h3>
-    <a href="/clubs">View All Clubs</a>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>View All Clubs</h3>
 
-    <h3>Join a Club</h3>
+            <button type="button" onclick="getAllClubs()">
+                View All Clubs
+            </button>
+        </div>
 
-    <form action="/clubs/join" method="post">
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="view-clubs-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
-        <br><br>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Join Club</h3>
 
-        <label>Club ID:</label>
-        <input type="number" name="clubId" min="1" required>
-        <br><br>
+            <form id="joinClubForm">
+                <label>Student ID:</label>
+                <input type="number" id="joinStudentId" min="1" required>
+                <br><br>
 
-        <button type="submit">Join Club</button>
+                <label>Club ID:</label>
+                <input type="number" id="joinClubId" min="1" required>
+                <br><br>
 
-    </form>
+                <button type="submit">Join Club</button>
+            </form>
+        </div>
 
-    <h3>Leave a Club</h3>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="join-club-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    <form action="/clubs/leave" method="post">
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Leave Club</h3>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
-        <br><br>
+            <form id="leaveClubForm">
+                <label>Student ID:</label>
+                <input type="number" id="leaveStudentId" min="1" required>
+                <br><br>
 
-        <label>Club ID:</label>
-        <input type="number" name="clubId" min="1" required>
-        <br><br>
+                <label>Club ID:</label>
+                <input type="number" id="leaveClubId" min="1" required>
+                <br><br>
 
-        <button type="submit">Leave Club</button>
+                <button type="submit">Leave Club</button>
+            </form>
+        </div>
 
-    </form>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="leave-club-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    <h3>My Clubs</h3>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>My Clubs</h3>
 
-    <form action="/clubs/my-clubs" method="get">
+            <form id="myClubsForm">
+                <label>Student ID:</label>
+                <input type="number" id="myClubsStudentId" min="1" required>
+                <br><br>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
+                <button type="submit">View My Clubs</button>
+            </form>
+        </div>
 
-        <button type="submit">View My Clubs</button>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="my-clubs-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    </form>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>View Club Members</h3>
 
-    <hr>
+            <form id="clubMembersForm">
+                <label>Club ID:</label>
+                <input type="number" id="membersClubId" min="1" required>
+                <br><br>
 
-    <!-- EVENTS SECTION -->
+                <button type="submit">View Members</button>
+            </form>
+        </div>
+
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="club-members-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<!-- EVENT MANAGEMENT -->
+
+<section class="main-section">
     <h2>Event Management</h2>
 
-    <h3>View All Events</h3>
-    <a href="/events">View Events, Dates and Venues</a>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>View All Events</h3>
 
-    <h3>Register for an Event</h3>
+            <button type="button" onclick="getAllEvents()">
+                View All Events
+            </button>
+        </div>
 
-    <form action="/events/register" method="post">
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="view-events-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
-        <br><br>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Register for Event</h3>
 
-        <label>Event ID:</label>
-        <input type="number" name="eventId" min="1" required>
-        <br><br>
+            <form id="registerEventForm">
+                <label>Student ID:</label>
+                <input type="number" id="registerStudentId" min="1" required>
+                <br><br>
 
-        <button type="submit">Register for Event</button>
+                <label>Event ID:</label>
+                <input type="number" id="registerEventId" min="1" required>
+                <br><br>
 
-    </form>
+                <button type="submit">Register for Event</button>
+            </form>
+        </div>
 
-    <h3>My Event Registrations</h3>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="register-event-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    <form action="/events/my-events" method="get">
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>My Event Registrations</h3>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
+            <form id="myEventsForm">
+                <label>Student ID:</label>
+                <input type="number" id="myEventsStudentId" min="1" required>
+                <br><br>
 
-        <button type="submit">View My Events</button>
+                <button type="submit">View My Events</button>
+            </form>
+        </div>
 
-    </form>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="my-events-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
+</section>
 
-    <hr>
+<!-- CLUB HEAD SECTION -->
 
-    <!-- CLUB HEAD SECTION -->
+<section class="main-section">
     <h2>Club Head Section</h2>
 
-    <h3>Add New Event</h3>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Add Event</h3>
 
-    <form action="/events/add" method="post">
+            <form id="addEventForm">
+                <label>Club Head Student ID:</label>
+                <input type="number" id="headStudentId" min="1" required>
+                <br><br>
 
-        <label>Club Head Student ID:</label>
-        <input type="number" name="headStudentId" min="1" required>
-        <br><br>
+                <label>Club ID:</label>
+                <input type="number" id="eventClubId" min="1" required>
+                <br><br>
 
-        <label>Club ID:</label>
-        <input type="number" name="clubId" min="1" required>
-        <br><br>
+                <label>Event Name:</label>
+                <input type="text" id="eventName" required>
+                <br><br>
 
-        <label>Event Name:</label>
-        <input type="text" name="eventName" maxlength="100" required>
-        <br><br>
+                <label>Description:</label>
+                <textarea id="eventDescription"></textarea>
+                <br><br>
 
-        <label>Description:</label>
-        <textarea name="description" maxlength="255"></textarea>
-        <br><br>
+                <label>Date:</label>
+                <input type="date" id="eventDate" required>
+                <br><br>
 
-        <label>Event Date:</label>
-        <input type="date" name="eventDate" required>
-        <br><br>
+                <label>Time:</label>
+                <input type="time" id="eventTime" required>
+                <br><br>
 
-        <label>Event Time:</label>
-        <input type="time" name="eventTime" required>
-        <br><br>
+                <label>Venue:</label>
+                <input type="text" id="eventVenue" required>
+                <br><br>
 
-        <label>Venue:</label>
-        <input type="text" name="venue" maxlength="100" required>
-        <br><br>
+                <button type="submit">Add Event</button>
+            </form>
+        </div>
 
-        <button type="submit">Add Event</button>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="add-event-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    </form>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>View Event Participants</h3>
 
-    <h3>View Event Participants</h3>
+            <form id="eventMembersForm">
+                <label>Event ID:</label>
+                <input type="number" id="membersEventId" min="1" required>
+                <br><br>
 
-    <form action="/events/participants" method="get">
+                <button type="submit">View Participants</button>
+            </form>
+        </div>
 
-        <label>Event ID:</label>
-        <input type="number" name="eventId" min="1" required>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="event-members-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-        <button type="submit">View Participants</button>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Update or Delete Event</h3>
 
-    </form>
+            <p>For updating, fill in the new event details in the
+            Add Event form above.</p>
 
-    <hr>
+            <form id="editEventForm">
+                <label>Event ID:</label>
+                <input type="number" id="editEventId" min="1" required>
+                <br><br>
 
-    <!-- ADMIN SECTION -->
+                <label>Club Head Student ID:</label>
+                <input type="number" id="editHeadId" min="1" required>
+                <br><br>
+
+                <button type="button" onclick="updateEvent()">
+                    Update Event
+                </button>
+
+                <button type="button" onclick="deleteEvent()">
+                    Delete Event
+                </button>
+            </form>
+        </div>
+
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="edit-event-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<!-- ADMIN SECTION -->
+
+<section class="main-section">
     <h2>Admin Section</h2>
 
-    <h3>Add New Club</h3>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Add Club</h3>
 
-    <form action="/clubs/add" method="post">
+            <form id="addClubForm">
+                <label>Club Name:</label>
+                <input type="text" id="newClubName" required>
+                <br><br>
 
-        <label>Club Name:</label>
-        <input type="text" name="clubName" maxlength="100" required>
-        <br><br>
+                <label>Description:</label>
+                <textarea id="newClubDescription"></textarea>
+                <br><br>
 
-        <label>Description:</label>
-        <textarea name="description" maxlength="255"></textarea>
-        <br><br>
+                <button type="submit">Add Club</button>
+            </form>
+        </div>
 
-        <button type="submit">Add Club</button>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="add-club-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
 
-    </form>
+    <div class="feature-row">
+        <div class="feature-input">
+            <h3>Assign Club Head</h3>
 
-    <h3>Assign Club Head</h3>
+            <form id="assignHeadForm">
+                <label>Club ID:</label>
+                <input type="number" id="assignClubId" min="1" required>
+                <br><br>
 
-    <form action="/clubs/assign-head" method="post">
+                <label>Student ID:</label>
+                <input type="number" id="assignStudentId" min="1" required>
+                <br><br>
 
-        <label>Club ID:</label>
-        <input type="number" name="clubId" min="1" required>
-        <br><br>
+                <button type="submit">Assign Club Head</button>
+            </form>
+        </div>
 
-        <label>Student ID:</label>
-        <input type="number" name="studentId" min="1" required>
-        <br><br>
+        <aside class="result-panel">
+            <h4>Result</h4>
+            <div class="result-content" id="assign-head-result">
+                <p class="placeholder">Your result will appear here.</p>
+            </div>
+        </aside>
+    </div>
+</section>
 
-        <button type="submit">Assign Club Head</button>
+<!-- JAVASCRIPT: CONNECTS HTML TO SPRING BOOT -->
 
-    </form>
+<script>
 
-    <h3>View Club Members</h3>
+    // Read input from a field
+    function value(id) {
+        return document.getElementById(id).value.trim();
+    }
 
-    <form action="/clubs/members" method="get">
+    // Convert database column names to readable labels
+    const labels = {
+        student_id: "Student ID",
+        studentId: "Student ID",
+        name: "Name",
+        department: "Department",
 
-        <label>Club ID:</label>
-        <input type="number" name="clubId" min="1" required>
+        club_id: "Club ID",
+        clubId: "Club ID",
+        club_name: "Club Name",
+        clubName: "Club Name",
+        head_student_id: "Club Head Student ID",
+        description: "Description",
 
-        <button type="submit">View Members</button>
+        event_id: "Event ID",
+        eventId: "Event ID",
+        event_name: "Event Name",
+        eventName: "Event Name",
+        event_date: "Date",
+        eventDate: "Date",
+        event_time: "Time",
+        eventTime: "Time",
+        venue: "Venue"
+    };
 
-    </form>
+    function humanize(key) {
+        if (labels[key]) {
+            return labels[key];
+        }
 
-    <hr>
+        return key.replace(/_/g, " ")
+                  .replace(/([a-z])([A-Z])/g, "$1 $2")
+                  .replace(/\b\w/g, letter => letter.toUpperCase());
+    }
 
-    <p>College Club and Event Management System</p>
+    // Display one database record as readable text
+    function renderRecord(record) {
+
+        const card = document.createElement("div");
+        card.className = "record-card";
+
+        for (const [key, raw] of Object.entries(record)) {
+
+            const line = document.createElement("div");
+            line.className = "record-line";
+
+            const label = document.createElement("strong");
+            label.textContent = humanize(key) + ": ";
+
+            const text = document.createElement("span");
+            text.textContent = raw === null || raw === undefined || raw === ""
+                ? "Not assigned"
+                : String(raw);
+
+            line.append(label, text);
+            card.appendChild(line);
+        }
+
+        return card;
+    }
+
+    // Show output in the correct right-side result panel
+    function show(targetId, result, success, status) {
+
+        const panel = document.getElementById(targetId);
+
+        // Clear previous result
+        panel.replaceChildren();
+
+        const heading = document.createElement("p");
+
+        heading.className = success
+            ? "status-success"
+            : "status-error";
+
+        heading.textContent = success
+            ? "Success"
+            : "Error (" + status + ")";
+
+        panel.appendChild(heading);
+
+        // If multiple records are returned
+        if (Array.isArray(result)) {
+
+            if (result.length === 0) {
+                const empty = document.createElement("p");
+                empty.textContent = "No records found.";
+                panel.appendChild(empty);
+            } else {
+
+                result.forEach(item => {
+
+                    if (item && typeof item === "object") {
+                        panel.appendChild(renderRecord(item));
+                    } else {
+                        const p = document.createElement("p");
+                        p.textContent = String(item);
+                        panel.appendChild(p);
+                    }
+
+                });
+            }
+
+        } else if (result && typeof result === "object") {
+
+            // If a single record is returned
+            panel.appendChild(renderRecord(result));
+
+        } else {
+
+            // If plain text is returned
+            const p = document.createElement("p");
+
+            p.textContent = String(
+                result || (success ? "Completed." : "Request failed.")
+            );
+
+            panel.appendChild(p);
+        }
+    }
+
+    // Send requests to Spring Boot REST API
+    async function request(url, targetId, method = "GET", data = null) {
+
+        const panel = document.getElementById(targetId);
+        panel.textContent = "Loading...";
+
+        try {
+
+            const options = {
+                method: method
+            };
+
+            if (data !== null) {
+
+                options.headers = {
+                    "Content-Type": "application/json"
+                };
+
+                options.body = JSON.stringify(data);
+            }
+
+            const response = await fetch(url, options);
+
+            const text = await response.text();
+
+            let result = text;
+
+            try {
+                result = JSON.parse(text);
+            } catch (error) {
+                // Keep normal text message
+            }
+
+            show(targetId, result, response.ok, response.status);
+
+        } catch (error) {
+
+            show(
+                targetId,
+                "Cannot connect to Spring Boot. " + error.message,
+                false,
+                "Network"
+            );
+        }
+    }
+
+    // Connect a form to its function
+    function bind(formId, action) {
+
+        document.getElementById(formId)
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+                action();
+
+            });
+    }
+
+    // STUDENT FUNCTIONS
+
+    bind("addStudentForm", function() {
+
+        request("/students", "add-student-result", "POST", {
+            studentId: value("studentId"),
+            name: value("studentName"),
+            department: value("department")
+        });
+
+    });
+
+    function getAllStudents() {
+        request("/students", "view-students-result");
+    }
+
+    bind("findStudentForm", function() {
+        request(
+            "/students/" + value("findStudentId"),
+            "find-student-result"
+        );
+    });
+
+    // CLUB FUNCTIONS
+
+    function getAllClubs() {
+        request("/clubs", "view-clubs-result");
+    }
+
+    bind("addClubForm", function() {
+
+        request("/clubs", "add-club-result", "POST", {
+            clubName: value("newClubName"),
+            description: value("newClubDescription")
+        });
+
+    });
+
+    bind("joinClubForm", function() {
+
+        request(
+            "/clubs/" + value("joinClubId") + "/join",
+            "join-club-result",
+            "POST",
+            {
+                studentId: Number(value("joinStudentId")),
+                clubId: Number(value("joinClubId"))
+            }
+        );
+
+    });
+
+    bind("leaveClubForm", function() {
+
+        request(
+            "/clubs/" + value("leaveClubId") +
+            "/leave/" + value("leaveStudentId"),
+            "leave-club-result",
+            "DELETE"
+        );
+
+    });
+
+    bind("myClubsForm", function() {
+
+        request(
+            "/clubs/student/" + value("myClubsStudentId"),
+            "my-clubs-result"
+        );
+
+    });
+
+    bind("clubMembersForm", function() {
+
+        request(
+            "/clubs/" + value("membersClubId") + "/members",
+            "club-members-result"
+        );
+
+    });
+
+    bind("assignHeadForm", function() {
+
+        request(
+            "/clubs/" + value("assignClubId") +
+            "/head/" + value("assignStudentId"),
+            "assign-head-result",
+            "PUT"
+        );
+
+    });
+
+    // EVENT FUNCTIONS
+
+    function getAllEvents() {
+        request("/events", "view-events-result");
+    }
+
+    bind("registerEventForm", function() {
+
+        request(
+            "/events/" + value("registerEventId") + "/register",
+            "register-event-result",
+            "POST",
+            {
+                studentId: Number(value("registerStudentId")),
+                eventId: Number(value("registerEventId"))
+            }
+        );
+
+    });
+
+    bind("myEventsForm", function() {
+
+        request(
+            "/events/student/" + value("myEventsStudentId"),
+            "my-events-result"
+        );
+
+    });
+
+    bind("eventMembersForm", function() {
+
+        request(
+            "/events/" + value("membersEventId") + "/registrations",
+            "event-members-result"
+        );
+
+    });
+
+    // Collect event details
+    function eventDetails() {
+
+        return {
+            clubId: Number(value("eventClubId")),
+            eventName: value("eventName"),
+            description: value("eventDescription"),
+            eventDate: value("eventDate"),
+            eventTime: value("eventTime"),
+            venue: value("eventVenue")
+        };
+    }
+
+    // Add event
+    bind("addEventForm", function() {
+
+        request(
+            "/events?headStudentId=" +
+                encodeURIComponent(value("headStudentId")),
+            "add-event-result",
+            "POST",
+            eventDetails()
+        );
+
+    });
+
+    // Update event
+    function updateEvent() {
+
+        if (!document.getElementById("editEventForm")
+                .reportValidity()) {
+            return;
+        }
+
+        if (!document.getElementById("addEventForm")
+                .reportValidity()) {
+            return;
+        }
+
+        request(
+            "/events/" + value("editEventId") +
+            "?headStudentId=" +
+                encodeURIComponent(value("editHeadId")),
+            "edit-event-result",
+            "PUT",
+            eventDetails()
+        );
+    }
+
+    // Delete event
+    function deleteEvent() {
+
+        if (!document.getElementById("editEventForm")
+                .reportValidity()) {
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete this event?")) {
+            return;
+        }
+
+        request(
+            "/events/" + value("editEventId") +
+            "?headStudentId=" +
+                encodeURIComponent(value("editHeadId")),
+            "edit-event-result",
+            "DELETE"
+        );
+    }
+
+</script>
 
 </body>
 </html>

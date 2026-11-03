@@ -1,0 +1,208 @@
+
+/* General page styling */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fb;
+    color: #263442;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+}
+
+/* Main heading */
+
+.page-header {
+    max-width: 1200px;
+    margin: 0 auto 24px;
+    text-align: center;
+}
+
+.page-header h1 {
+    color: #1e3a5f;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    margin-top: 0;
+    color: #59697a;
+}
+
+/* Main sections */
+
+.main-section {
+    max-width: 1200px;
+    margin: 0 auto 32px;
+}
+
+.main-section > h2 {
+    color: #245a81;
+    padding: 12px 0;
+    border-bottom: 2px solid #c9dceb;
+}
+
+/* Two-column layout */
+/* Left: Input form */
+/* Right: Result */
+
+.feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+    margin: 18px 0;
+}
+
+/* Form and result boxes */
+
+.feature-input,
+.result-panel {
+    min-width: 0;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #dce4ed;
+    border-radius: 10px;
+    box-shadow: 0 2px 7px rgba(30, 58, 95, 0.06);
+}
+
+/* Form headings */
+
+.feature-input h3,
+.result-panel h4 {
+    margin: 0 0 14px;
+    color: #245a81;
+}
+
+.result-panel h4 {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e8ef;
+}
+
+/* Forms */
+
+form {
+    margin: 0;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Input fields */
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    padding: 9px;
+    margin-top: 5px;
+    border: 1px solid #b9c8d7;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+/* Buttons */
+
+button {
+    background-color: #245a81;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #173d59;
+}
+
+/* Focus effect */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #2f86bd;
+    outline-offset: 2px;
+}
+
+/* Result area */
+
+.result-content {
+    overflow-wrap: anywhere;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Placeholder text */
+
+.placeholder {
+    color: #788595;
+    font-style: italic;
+}
+
+/* Success and error messages */
+
+.status-success {
+    color: #176742;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.status-error {
+    color: #b42318;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+/* Student, club and event result cards */
+
+.record-card {
+    background-color: #f5f9fd;
+    border: 1px solid #d9e5ef;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+/* Individual result details */
+
+.record-line {
+    padding: 3px 0;
+    font-size: 14px;
+}
+
+.record-line strong {
+    color: #1e3a5f;
+}
+
+/* Responsive layout for smaller screens */
+
+@media (max-width: 760px) {
+
+    body {
+        padding: 14px;
+    }
+
+    .feature-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .feature-input,
+    .result-panel {
+        padding: 16px;
+    }
+}
